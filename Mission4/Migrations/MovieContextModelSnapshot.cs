@@ -15,15 +15,80 @@ namespace Mission4.Migrations
             modelBuilder
                 .HasAnnotation("ProductVersion", "3.1.22");
 
+            modelBuilder.Entity("Mission4.Models.Category", b =>
+                {
+                    b.Property<int>("CategoryId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("CategoryName")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("CategoryId");
+
+                    b.ToTable("Categories");
+
+                    b.HasData(
+                        new
+                        {
+                            CategoryId = 1,
+                            CategoryName = "Sci-fi/Adventure"
+                        },
+                        new
+                        {
+                            CategoryId = 2,
+                            CategoryName = "Action/Adventure"
+                        },
+                        new
+                        {
+                            CategoryId = 3,
+                            CategoryName = "Drama/Comedy"
+                        },
+                        new
+                        {
+                            CategoryId = 4,
+                            CategoryName = "Comedy"
+                        },
+                        new
+                        {
+                            CategoryId = 5,
+                            CategoryName = "Drama"
+                        },
+                        new
+                        {
+                            CategoryId = 6,
+                            CategoryName = "Family"
+                        },
+                        new
+                        {
+                            CategoryId = 7,
+                            CategoryName = "Horror/Suspense"
+                        },
+                        new
+                        {
+                            CategoryId = 8,
+                            CategoryName = "Miscellaneous"
+                        },
+                        new
+                        {
+                            CategoryId = 9,
+                            CategoryName = "Television"
+                        },
+                        new
+                        {
+                            CategoryId = 10,
+                            CategoryName = "VHS"
+                        });
+                });
+
             modelBuilder.Entity("Mission4.Models.MovieEntry", b =>
                 {
                     b.Property<int>("MovieId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("Category")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Director")
                         .IsRequired()
@@ -52,13 +117,15 @@ namespace Mission4.Migrations
 
                     b.HasKey("MovieId");
 
+                    b.HasIndex("CategoryId");
+
                     b.ToTable("Movies");
 
                     b.HasData(
                         new
                         {
                             MovieId = 1,
-                            Category = "Sci-fi/Adventure",
+                            CategoryId = 1,
                             Director = "Christopher Nolan",
                             Edited = false,
                             Notes = "Love the brain stretch!",
@@ -69,7 +136,7 @@ namespace Mission4.Migrations
                         new
                         {
                             MovieId = 2,
-                            Category = "Action/Adventure",
+                            CategoryId = 2,
                             Director = "Taika Waititi",
                             Edited = false,
                             Notes = "Laughed so hard",
@@ -80,7 +147,7 @@ namespace Mission4.Migrations
                         new
                         {
                             MovieId = 3,
-                            Category = "Drama/Comedy",
+                            CategoryId = 3,
                             Director = "Lee Hwan-Kyung",
                             Edited = false,
                             Notes = "Cried so hard",
@@ -88,6 +155,15 @@ namespace Mission4.Migrations
                             Title = "Miracle in Cell No. 7",
                             Year = 2013
                         });
+                });
+
+            modelBuilder.Entity("Mission4.Models.MovieEntry", b =>
+                {
+                    b.HasOne("Mission4.Models.Category", "Category")
+                        .WithMany()
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

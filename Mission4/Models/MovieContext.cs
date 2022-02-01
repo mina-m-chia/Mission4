@@ -13,14 +13,32 @@ namespace Mission4.Models
 
         public DbSet<MovieEntry> Movies { get; set; }
 
+        public DbSet<Category> Categories { get; set; }
+
+        //Seed data
         protected override void OnModelCreating(ModelBuilder mb)
         {
+            mb.Entity<Category>().HasData(
+
+                new Category { CategoryId = 1, CategoryName="Sci-fi/Adventure"},
+                new Category { CategoryId = 2, CategoryName = "Action/Adventure" },
+                new Category { CategoryId = 3, CategoryName = "Drama/Comedy" },
+                new Category { CategoryId = 4, CategoryName = "Comedy" },
+                new Category { CategoryId = 5, CategoryName = "Drama" },
+                new Category { CategoryId = 6, CategoryName = "Family" },
+                new Category { CategoryId = 7, CategoryName = "Horror/Suspense" },
+                new Category { CategoryId = 8, CategoryName = "Miscellaneous" },
+                new Category { CategoryId = 9, CategoryName = "Television" },
+                new Category { CategoryId = 10, CategoryName = "VHS" }
+
+                );
+
             mb.Entity<MovieEntry>().HasData(
 
                 new MovieEntry
                 {
                     MovieId = 1,
-                    Category = "Sci-fi/Adventure",
+                    CategoryId = 1,
                     Title = "Interstellar",
                     Year = 2014,
                     Director = "Christopher Nolan",
@@ -31,7 +49,7 @@ namespace Mission4.Models
                 new MovieEntry
                 {
                     MovieId = 2,
-                    Category = "Action/Adventure",
+                    CategoryId = 2,
                     Title = "Thor: Ragnarok",
                     Year = 2017,
                     Director = "Taika Waititi",
@@ -42,7 +60,7 @@ namespace Mission4.Models
                 new MovieEntry
                 {
                     MovieId = 3,
-                    Category = "Drama/Comedy",
+                    CategoryId = 3,
                     Title = "Miracle in Cell No. 7",
                     Year = 2013,
                     Director = "Lee Hwan-Kyung",

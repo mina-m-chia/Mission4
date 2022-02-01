@@ -16,7 +16,8 @@ namespace Mission4.Models
         public int MovieId { get; set; }
 
         [Required(ErrorMessage = "Category is required")]
-        public string Category { get; set; }
+        public int CategoryId { get; set; }
+        public Category Category { get; set; }
 
         [Required(ErrorMessage = "Title is required")]
         public string Title { get; set; }
